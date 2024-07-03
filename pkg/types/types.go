@@ -52,6 +52,7 @@ type FileName struct {
 	UnauthorizedAccess  string
 	InternalServerError string
 	Signup              string
-	AddBook             string
+	AddBook             string 
+	ViewBooks           string
 }
 

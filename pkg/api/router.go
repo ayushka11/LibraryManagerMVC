@@ -31,6 +31,8 @@ func Run() {
 	adminRouter.HandleFunc("/addBook", controller.AddBookPage).Methods("GET")
 	adminRouter.HandleFunc("/addBook", controller.AddBook).Methods("POST")
 
+	adminRouter.HandleFunc("/viewBooks", controller.ViewBooks).Methods("GET")
+
 	// router.HandleFunc("/403", controller.Unauthorized).Methods("GET")
 	// router.HandleFunc("/500", controller.InternalServerError).Methods("GET")
 

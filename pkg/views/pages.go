@@ -15,6 +15,7 @@ func ViewFileNames() types.FileName {
 		InternalServerError: "internalServerError",
 		Signup:              "signup",
 		AddBook:             "addBook",
+		ViewBooks:           "viewBooks",
 	}
 }
 
