@@ -23,8 +23,8 @@ func Run() {
 	router.HandleFunc("/signup", controller.Signup).Methods("GET")
 	router.HandleFunc("/signup", controller.AddUser).Methods("POST")
 	
-	// router.HandleFunc("/login", controller.Login).Methods("GET")
-	// router.HandleFunc("/login", controller.LoginUser).Methods("POST")
+	router.HandleFunc("/login", controller.Login).Methods("GET")
+	router.HandleFunc("/login", controller.LoginUser).Methods("POST")
 
 	// router.HandleFunc("/403", controller.Unauthorized).Methods("GET")
 	// router.HandleFunc("/500", controller.InternalServerError).Methods("GET")

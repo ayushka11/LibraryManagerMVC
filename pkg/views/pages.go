@@ -2,17 +2,23 @@ package views
 
 import (
 	"html/template"
-	"net/http"
+	"github.com/ayushka11/LibraryManagerMVC/pkg/types"
 )
 
-func Render(w http.ResponseWriter, tmpl string, data interface{}) error {
-	t, err := template.ParseFiles(tmpl)
-	if err != nil {
-		return err
+func ViewFileNames() types.FileName {
+	return types.FileName{
+		AdminHome:           "adminHome",
+		UserHome:            "userHome",
+		Login:               "login",
+		PageNotFound:        "pageNotFound",
+		UnauthorizedAccess:  "unauthorizedAccessError",
+		InternalServerError: "internalServerError",
+		Signup:              "signup",
 	}
-	err = t.Execute(w, data)
-	if err != nil {
-		return err
-	}
-	return nil
+}
+
+func Render(page string) *template.Template {
+	file := "templates/" + page + ".html"
+	temp := template.Must(template.ParseFiles(file))
+	return temp
 }

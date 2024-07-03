@@ -7,11 +7,13 @@ import (
 	"github.com/ayushka11/LibraryManagerMVC/pkg/models"
 	"github.com/ayushka11/LibraryManagerMVC/pkg/types"
 	"github.com/ayushka11/LibraryManagerMVC/pkg/views"
+
 )
 
 func Signup(writer http.ResponseWriter, request *http.Request) {
-	//fmt.Println("Signup")
-	views.Render(writer, "signup.html", nil)
+	files := views.ViewFileNames()
+	t := views.Render(files.Signup)
+	t.Execute(writer, nil)
 }
 
 func AddUser(writer http.ResponseWriter, request *http.Request) {
@@ -22,42 +24,41 @@ func AddUser(writer http.ResponseWriter, request *http.Request) {
 	RequestUser.ConfirmPassword = request.FormValue("passwordC")
 
 	if RequestUser.Password != RequestUser.ConfirmPassword {
-		views.Render(writer, "signup.html", "Password and Confirm Password do not match")
+		http.Redirect(writer, request, "/signup?message=passwords do not match", http.StatusSeeOther)
 		return
-	} else if (RequestUser.UserName == "" || RequestUser.Password == "" || RequestUser.ConfirmPassword == "") {
-		views.Render(writer, "signup.html", "All fields are mandatory")
+	} else if RequestUser.UserName == "" || RequestUser.Password == "" || RequestUser.ConfirmPassword == "" {
+		http.Redirect(writer, request, "/signup?message=all fields are mandatory", http.StatusSeeOther)
 		return
 	} else {
 		db, err := models.Connection()
 		if err != nil {
 			log.Println(err)
-			views.Render(writer, "signup.html", "Internal Server Error")
+			http.Redirect(writer, request, "/500", http.StatusSeeOther)
 			return
 		}
 		userExists, _, err := models.UserExists(db, RequestUser.UserName)
 		if err != nil {
 			log.Println(err)
-			views.Render(writer, "signup.html", "Internal Server Error")
+			http.Redirect(writer, request, "/500", http.StatusSeeOther)
 			return
 		}
 
 		if userExists {
-			views.Render(writer, "signup.html", "User already exists")
+			http.Redirect(writer, request, "/signup?message=user already exists", http.StatusSeeOther)
 			return
 		} else {
 			password, err := models.HashPassword(RequestUser.Password)
 			if err != nil {
 				log.Println(err)
-				views.Render(writer, "signup.html", "Internal Server Error")
+				http.Redirect(writer, request, "/500", http.StatusSeeOther)
 				return
 			}
 			err = models.AddUser(RequestUser.UserName, password)
 			if err != nil {
 				log.Println(err)
-				views.Render(writer, "signup.html", "Internal Server Error")
+				http.Redirect(writer, request, "/500", http.StatusSeeOther)
 				return
 			}
-			//fmt.Println("User Added")
 		}
 
 	}

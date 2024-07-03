@@ -5,18 +5,18 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
-type JWTKey struct {
-	JWTKey string `yaml:"JWTSecretKey"`
+type JWTSecretKey struct {
+	JWTSecretKey string `yaml:"JWTSecretKey"`
 }
 
-func GetJWT() (string, error) {
+func GetJWTSecretKey() (string, error) {
 	file, err := os.ReadFile("db.yaml")
 	if err != nil {
 		return "", err
 	}
-	var key JWTKey
+	var key JWTSecretKey
 	if err := yaml.Unmarshal(file, &key); err != nil {
 		return "", err
 	}
-	return key.JWTKey, nil
+	return key.JWTSecretKey, nil
 }

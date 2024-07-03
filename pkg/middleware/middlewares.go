@@ -41,7 +41,7 @@ func TokenMiddleware(next http.Handler) http.Handler {
 
 		claims := &types.Claims{}
 
-		key, err := models.GetJWT()
+		key, err := models.GetJWTSecretKey()
 		jwtKey := []byte(key)
 		if err != nil {
 			log.Println(err)
