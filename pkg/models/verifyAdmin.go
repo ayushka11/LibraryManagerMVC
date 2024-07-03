@@ -11,7 +11,7 @@ func VerifyAdmin(userId int) (bool, error) {
 	}
 
 	var isAdmin bool
-	err = db.QueryRow("SELECT isAdmin FROM users WHERE Userid = ?", userId).Scan(&isAdmin)
+	err = db.QueryRow("SELECT isAdmin FROM users WHERE id = ?", userId).Scan(&isAdmin)
 	if err != nil {
 		if err != sql.ErrNoRows {
 			return false , err

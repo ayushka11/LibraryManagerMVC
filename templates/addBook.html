@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Book</title>
+    <!-- Add Bootstrap Minty CSS -->
+    <link rel="stylesheet" href="https://bootswatch.com/4/minty/bootstrap.min.css">
+    <style>
+        .h-custom-2 {
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="#">Library Management</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/adminHome">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/viewBooks">View Books</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/bookRequests">Book Requests</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/adminRequests">Admin Requests</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container h-custom-2 d-flex align-items-center justify-content-center">
+        <div class="col-sm-6 text-black">
+            <div class="px-5 ms-xl-4 mt-5 pt-5">
+                <h1 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px">Add Book</h1>
+
+                <!-- Message Bar -->
+                {{if .Message}}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    {{.Message}}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                {{end}}
+
+                <!-- Add Book Form -->
+                <form id="addBookForm" action="/admin/addBook" method="POST">
+                    <div class="form-group">
+                        <label for="title">Book Title</label>
+                        <input type="text" id="title" name="title" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="author">Author</label>
+                        <input type="text" id="author" name="author" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="quantity">Quantity</label>
+                        <input type="number" id="quantity" name="quantity" class="form-control" required min="1">
+                        <div class="invalid-feedback">
+                            Quantity must be greater than 0.
+                        </div>
+                    </div>
+
+                    <div class="pt-1 mb-4">
+                        <button class="btn btn-info btn-block" type="submit">Add Book</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Bootstrap and jQuery JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        (function() {
+            'use strict';
+            window.addEventListener('load', function() {
+                var form = document.getElementById('addBookForm');
+                form.addEventListener('submit', function(event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            }, false);
+        })();
+    </script>
+</body>
+</html>

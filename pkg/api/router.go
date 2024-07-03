@@ -26,6 +26,11 @@ func Run() {
 	router.HandleFunc("/login", controller.Login).Methods("GET")
 	router.HandleFunc("/login", controller.LoginUser).Methods("POST")
 
+	adminRouter.HandleFunc("/adminHome", controller.AdminHome).Methods("GET")
+
+	adminRouter.HandleFunc("/addBook", controller.AddBookPage).Methods("GET")
+	adminRouter.HandleFunc("/addBook", controller.AddBook).Methods("POST")
+
 	// router.HandleFunc("/403", controller.Unauthorized).Methods("GET")
 	// router.HandleFunc("/500", controller.InternalServerError).Methods("GET")
 

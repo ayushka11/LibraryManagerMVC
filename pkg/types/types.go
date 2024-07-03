@@ -32,6 +32,14 @@ type RequestUser struct {
 	ConfirmPassword string
 }
 
+type Book struct {
+	BookId        int
+	Title         string
+	Author        string
+	Available     int
+	Quantity      int
+}
+
 type PgMessage struct {
 	Message interface{}
 }
@@ -44,5 +52,6 @@ type FileName struct {
 	UnauthorizedAccess  string
 	InternalServerError string
 	Signup              string
+	AddBook             string
 }
 
