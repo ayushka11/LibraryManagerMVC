@@ -1,12 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>View Books</title>
+    <title>User Home</title>
     <!-- Add Bootstrap Minty CSS -->
     <link rel="stylesheet" href="https://bootswatch.com/4/minty/bootstrap.min.css">
     <style>
         .h-custom-2 {
             height: 100%;
+        }
+        .centered-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
         }
     </style>
 </head>
@@ -20,16 +27,13 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="/admin/addBook">Add Book</a>
+                    <a class="nav-link" href="/user/availableBooks">Available Books</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/admin/viewBooks">View Books</a>
+                    <a class="nav-link" href="/user/history">History</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/admin/bookRequests">Book Requests</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/admin/adminRequests">Admin Requests</a>
+                    <a class="nav-link" href="/user/requestAdmin">Request Admin Access</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/logout">Logout</a>
@@ -39,31 +43,32 @@
     </nav>
 
     <!-- Main Content -->
-    <div class="container mt-5">
-        <h1 class="mb-4">Books List</h1>
+    <div class="container-fluid centered-content">
+
+        <!-- Checked Out Books List -->
+        <h1>Your Checked Out Books</h1>
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th>Title</th>
-                    <th>Author</th>
-                    <th>Quantity</th>
-                    <th>Available</th>
-                    <th>Actions</th>
+                    <th scope="col">#</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Author</th>
+                    <th scope="col">Checkout Date</th>
+                    <th scope="col">Due Date</th>
                 </tr>
             </thead>
             <tbody>
                 {{range .Books}}
                 <tr>
+                    <th scope="row">{{.ID}}</th>
                     <td>{{.Title}}</td>
                     <td>{{.Author}}</td>
-                    <td>{{.Quantity}}</td>
-                    <td>{{.Available}}</td>
-                    <td>
-                        <form action="/admin/deleteBook" method="POST" style="display: inline;">
-                            <input type="hidden" name="id" value="{{.BookId}}">
-                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                        </form>
-                    </td>
+                    <td>{{.CheckoutDate}}</td>
+                    <td>{{.DueDate}}</td>
+                </tr>
+                {{else}}
+                <tr>
+                    <td colspan="5" class="text-center">No books checked out</td>
                 </tr>
                 {{end}}
             </tbody>
