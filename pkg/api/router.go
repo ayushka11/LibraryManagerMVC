@@ -28,11 +28,12 @@ func Run() {
 
 	userRouter.HandleFunc("/userHome", controller.UserHome).Methods("GET")
 
+	userRouter.HandleFunc("/availableBooks", controller.AvailableBooks).Methods("GET")
+
 	adminRouter.HandleFunc("/adminHome", controller.AdminHome).Methods("GET")
 
 	adminRouter.HandleFunc("/addBook", controller.AddBookPage).Methods("GET")
 	adminRouter.HandleFunc("/addBook", controller.AddBook).Methods("POST")
-
 	adminRouter.HandleFunc("/viewBooks", controller.ViewBooks).Methods("GET")
 	adminRouter.HandleFunc("/deleteBook", controller.DeleteBook).Methods("POST")																														
 

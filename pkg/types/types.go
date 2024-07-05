@@ -40,6 +40,14 @@ type Book struct {
 	Quantity      int
 }
 
+type Checkouts struct {
+	BookId        int
+	Title         string
+	Author        string
+	CheckoutDate  string
+	DueDate       string
+}
+
 type PgMessage struct {
 	Message interface{}
 }
@@ -54,5 +62,14 @@ type FileName struct {
 	Signup              string
 	AddBook             string 
 	ViewBooks           string
+	AvailableBooks      string
 }
+
+type ContextKey string
+
+const (
+    UserIdContextKey  ContextKey = "UserId"
+    IsAdminContextKey ContextKey = "IsAdmin"
+    UsernameContextKey ContextKey = "Username"
+)
 

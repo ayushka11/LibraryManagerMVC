@@ -10,13 +10,13 @@ import (
 	"golang.org/x/exp/slices"
 )
 
-type key string
+// type key string
 
-const (
-	UserIdContextKey key = "UserId"
-	IsAdminContextKey key = "IsAdmin"
-	UsernameContextKey key = "Username"
-)
+// const (
+// 	UserIdContextKey key = "UserId"
+// 	IsAdminContextKey key = "IsAdmin"
+// 	UsernameContextKey key = "Username"
+// )
 
 func TokenMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(writer http.ResponseWriter, request *http.Request) {
@@ -68,9 +68,9 @@ func TokenMiddleware(next http.Handler) http.Handler {
 			return
 		}
 
-		ctx := context.WithValue(request.Context(), UserIdContextKey, claims.UserId)
-		ctx = context.WithValue(ctx, IsAdminContextKey, claims.IsAdmin)
-		ctx = context.WithValue(ctx, UsernameContextKey, claims.Username)
+		ctx := context.WithValue(request.Context(), types.UserIdContextKey, claims.UserId)
+		ctx = context.WithValue(ctx, types.IsAdminContextKey, claims.IsAdmin)
+		ctx = context.WithValue(ctx, types.UsernameContextKey, claims.Username)
 		request = request.WithContext(ctx)
 
 		next.ServeHTTP(writer, request)
@@ -81,9 +81,9 @@ func RoleMiddleware(isAdminAuth bool) func(http.Handler) http.Handler {
 	return func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(writer http.ResponseWriter, request *http.Request) {
 
-			isAdmin := request.Context().Value(IsAdminContextKey).(bool)
+			isAdmin := request.Context().Value(types.IsAdminContextKey).(bool)
 			
-			userId := request.Context().Value(UserIdContextKey).(int)
+			userId := request.Context().Value(types.UserIdContextKey).(int)
 
 			isAdminDb, err := models.VerifyAdmin(userId)
 			if err != nil {
