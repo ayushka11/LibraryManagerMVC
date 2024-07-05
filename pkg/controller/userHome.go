@@ -24,10 +24,10 @@ func UserHome (writer http.ResponseWriter, request *http.Request) {
 	t := views.Render(files.UserHome)
 
 	data := struct {
-        Message string
+        // Message string
         Checkouts   []types.Checkouts
     }{
-        Message: "", 
+        // Message: "", 
         Checkouts: checkouts,
     }
 

@@ -29,6 +29,8 @@ func Run() {
 	userRouter.HandleFunc("/userHome", controller.UserHome).Methods("GET")
 
 	userRouter.HandleFunc("/availableBooks", controller.AvailableBooks).Methods("GET")
+	userRouter.HandleFunc("/requestCheckout", controller.CheckoutBook).Methods("POST")
+	userRouter.HandleFunc("/requestAdmin", controller.RequestAdmin).Methods("GET")
 
 	adminRouter.HandleFunc("/adminHome", controller.AdminHome).Methods("GET")
 
