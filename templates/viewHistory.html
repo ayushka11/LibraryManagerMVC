@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View History</title>
+    <!-- Add Bootstrap Minty CSS -->
+    <link rel="stylesheet" href="https://bootswatch.com/4/minty/bootstrap.min.css">
+    <style>
+        .h-custom-2 {
+            height: 100%;
+        }
+        .centered-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="#">Library Management</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/user/home">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/user/availableBooks">Available Books</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/user/requestAdmin">Request Admin Access</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container-fluid centered-content">
+        <!-- User History List -->
+        <h1>Your History</h1>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Author</th>
+                    <th scope="col">Check Out Date</th>
+                    <th scope="col">Due Date</th>
+                    <th scope="col">Return Date</th>
+                    <th scope="col">Fine</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Type</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{range .History}}
+                <tr>
+                    <th scope="row">{{.BookId}}</th>
+                    <td>{{.Title}}</td>
+                    <td>{{.Author}}</td>
+                    <td>{{.CheckOutDate}}</td>
+                    <td>{{.DueDate}}</td>
+                    <td>{{.ReturnDate}}</td>
+                    <td>{{if .Fine}}${{.Fine}}{{else}}N/A{{end}}</td>
+                    <td>{{.Status}}</td>
+                    <td>{{.Type}}</td>
+                </tr>
+                {{else}}
+                <tr>
+                    <td colspan="9" class="text-center">No history found</td>
+                </tr>
+                {{end}}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Add Bootstrap JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

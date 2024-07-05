@@ -76,6 +76,7 @@ type FileName struct {
 	AvailableBooks      string
 	BookRequests        string
 	AdminRequests       string
+	ViewHistory         string
 }
 
 type ContextKey string
@@ -89,5 +90,17 @@ const (
 type AdminRequest struct {
 	UserId         int
 	Username       string
+}
+
+type History struct {
+	BookId        int
+	Title         string
+	Author        string
+	CheckOutDate  *string
+	DueDate       *string
+	ReturnDate    *string
+	Fine          *float64
+	Status        string
+	Type		  string
 }
 
