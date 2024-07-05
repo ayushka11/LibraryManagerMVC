@@ -44,8 +44,8 @@ type Checkouts struct {
 	BookId        int
 	Title         string
 	Author        string
-	CheckoutDate  string
-	DueDate       string
+	CheckoutDate  *string
+	DueDate       *string
 }
 
 type PgMessage struct {
@@ -75,6 +75,7 @@ type FileName struct {
 	ViewBooks           string
 	AvailableBooks      string
 	BookRequests        string
+	AdminRequests       string
 }
 
 type ContextKey string
@@ -84,4 +85,9 @@ const (
     IsAdminContextKey ContextKey = "IsAdmin"
     UsernameContextKey ContextKey = "Username"
 )
+
+type AdminRequest struct {
+	UserId         int
+	Username       string
+}
 

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Admin - Book Requests</title>
+    <title>Admin - User Requests</title>
     <!-- Add Bootstrap Minty CSS -->
     <link rel="stylesheet" href="https://bootswatch.com/4/minty/bootstrap.min.css">
     <style>
@@ -30,13 +30,13 @@
                     <a class="nav-link" href="/admin/home">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/admin/addBooks">Add Books</a>
+                    <a class="nav-link" href="/admin/addBooks">Add Book</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/admin/viewBooks">View Books</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/admin/requests">Admin Requests</a>
+                    <a class="nav-link" href="/admin/bookRequests">Book Requests</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/logout">Logout</a>
@@ -47,52 +47,35 @@
 
     <!-- Main Content -->
     <div class="container-fluid centered-content">
-
-        <!-- Pending Book Requests List -->
-        <h1>Pending Book Requests</h1>
+        <!-- Pending User Requests List -->
+        <h1>Pending User Requests</h1>
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">User</th>
-                    <th scope="col">Book</th>
-                    <th scope="col">Request Type</th>
-                    <th scope="col">Checkout Date</th>
-                    <th scope="col">Due Date</th>
+                    <th scope="col">User ID</th>
+                    <th scope="col">Username</th>
                     <th scope="col">Action</th>
                 </tr>
             </thead>
             <tbody>
-                {{range .BookRequests}}
+                {{range .AdminRequests}}
                 <tr>
-                    <th scope="row">{{.RequestId}}</th>
+                    <td>{{.UserId}}</td>
                     <td>{{.Username}}</td>
-                    <td>{{.Book}}</td>
-                    <td>{{.Type}}</td>
-                    <td>{{if .CheckoutDate}}
-                        {{.CheckoutDate}}
-                    {{else}}
-                        Not available
-                    {{end}}</td>
-                    <td>{{if .DueDate}}
-                        {{.DueDate}}
-                    {{else}}
-                        Not available
-                    {{end}}</td>
                     <td>
-                        <form action="/admin/approveRequest" method="POST" style="display: inline;">
-                            <input type="hidden" name="request_id" value="{{.RequestId}}">
+                        <form action="/admin/approveAdminRequest" method="POST" style="display: inline;">
+                            <input type="hidden" name="userId" value="{{.UserId}}">
                             <button type="submit" class="btn btn-success">Approve</button>
                         </form>
-                        <form action="/admin/declineRequest" method="POST" style="display: inline;">
-                            <input type="hidden" name="request_id" value="{{.RequestId}}">
-                            <button type="submit" class="btn btn-danger">Decline</button>
+                        <form action="/admin/rejectAdminRequest" method="POST" style="display: inline;">
+                            <input type="hidden" name="userId" value="{{.UserId}}">
+                            <button type="submit" class="btn btn-danger">Reject</button>
                         </form>
                     </td>
                 </tr>
                 {{else}}
                 <tr>
-                    <td colspan="6" class="text-center">No pending requests</td>
+                    <td colspan="4" class="text-center">No pending user requests</td>
                 </tr>
                 {{end}}
             </tbody>
