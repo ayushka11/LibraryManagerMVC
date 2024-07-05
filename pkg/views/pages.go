@@ -17,6 +17,7 @@ func ViewFileNames() types.FileName {
 		AddBook:             "addBook",
 		ViewBooks:           "viewBooks",
 		AvailableBooks:      "availableBooks",
+		BookRequests:        "bookRequests",
 	}
 }
 

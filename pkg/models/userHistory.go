@@ -15,7 +15,7 @@ func GetCheckedOutBooksByUser(id int) ([]types.Checkouts, error){
 		SELECT b.id, b.title, b.author, c.checkout_date, c.due_date
 		FROM books b
 		JOIN checkouts c ON b.id = c.book_id
-		WHERE c.user_id = ? AND c.status = 'approved' AND c.type = 'checkout'
+		WHERE c.user_id = ? AND ((c.status = 'approved' AND c.type = 'checkout') OR (c.status = 'pending' AND c.type = 'checkin'));
 	`
 	rows, err := db.Query(checkoutsquery, id)
 	if err != nil {

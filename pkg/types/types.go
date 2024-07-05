@@ -52,6 +52,17 @@ type PgMessage struct {
 	Message interface{}
 }
 
+type BookRequest struct {
+	RequestId       int
+	BookId          int
+	UserId          int
+	Username        string
+	Book            string
+	Type            string
+	CheckoutDate    *string
+	DueDate         *string
+}
+
 type FileName struct {
 	AdminHome           string
 	UserHome            string
@@ -63,6 +74,7 @@ type FileName struct {
 	AddBook             string 
 	ViewBooks           string
 	AvailableBooks      string
+	BookRequests        string
 }
 
 type ContextKey string

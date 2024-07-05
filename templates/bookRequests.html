@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin - Book Requests</title>
+    <!-- Add Bootstrap Minty CSS -->
+    <link rel="stylesheet" href="https://bootswatch.com/4/minty/bootstrap.min.css">
+    <style>
+        .h-custom-2 {
+            height: 100%;
+        }
+        .centered-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="#">Library Management</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/home">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/addBooks">Add Books</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/viewBooks">View Books</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/requests">Admin Requests</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container-fluid centered-content">
+
+        <!-- Pending Book Requests List -->
+        <h1>Pending Book Requests</h1>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">User</th>
+                    <th scope="col">Book</th>
+                    <th scope="col">Request Type</th>
+                    <th scope="col">Checkout Date</th>
+                    <th scope="col">Due Date</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{range .Requests}}
+                <tr>
+                    <th scope="row">{{.RequestId}}</th>
+                    <td>{{.Username}}</td>
+                    <td>{{.Book}}</td>
+                    <td>{{.Type}}</td>
+                    <td>{{if .CheckoutDate}}
+                        {{.CheckoutDate}}
+                    {{else}}
+                        Not available
+                    {{end}}</td>
+                    <td>{{if .DueDate}}
+                        {{.DueDate}}
+                    {{else}}
+                        Not available
+                    {{end}}</td>
+                    <td>
+                        <form action="/admin/approveRequest" method="POST" style="display: inline;">
+                            <input type="hidden" name="request_id" value="{{.RequestId}}">
+                            <button type="submit" class="btn btn-success">Approve</button>
+                        </form>
+                        <form action="/admin/declineRequest" method="POST" style="display: inline;">
+                            <input type="hidden" name="request_id" value="{{.RequestId}}">
+                            <button type="submit" class="btn btn-danger">Decline</button>
+                        </form>
+                    </td>
+                </tr>
+                {{else}}
+                <tr>
+                    <td colspan="6" class="text-center">No pending requests</td>
+                </tr>
+                {{end}}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Add Bootstrap JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
