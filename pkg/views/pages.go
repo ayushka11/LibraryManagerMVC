@@ -11,7 +11,7 @@ func ViewFileNames() types.FileName {
 		UserHome:            "userHome",
 		Login:               "login",
 		PageNotFound:        "pageNotFound",
-		UnauthorizedAccess:  "unauthorizedAccessError",
+		UnauthorizedAccess:  "unauthorized",
 		InternalServerError: "internalServerError",
 		Signup:              "signup",
 		AddBook:             "addBook",

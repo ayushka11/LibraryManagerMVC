@@ -46,8 +46,8 @@ func Run() {
 	adminRouter.HandleFunc("/approveAdminRequest", controller.ApproveAdminRequest).Methods("POST")
 	adminRouter.HandleFunc("/rejectAdminRequest", controller.RejectAdminRequest).Methods("POST")																													
 
-	// router.HandleFunc("/403", controller.Unauthorized).Methods("GET")
-	// router.HandleFunc("/500", controller.InternalServerError).Methods("GET")
+	router.HandleFunc("/403", controller.Unauthorized).Methods("GET")
+	router.HandleFunc("/500", controller.InternalServerError).Methods("GET")
 
 	http.ListenAndServe(":8000", router)
 }
