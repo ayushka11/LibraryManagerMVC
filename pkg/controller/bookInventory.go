@@ -41,3 +41,27 @@ func AddBook (writer http.ResponseWriter, request *http.Request) {
 	t := views.Render(files.AdminHome)
 	t.Execute(writer, data)
 }
+
+func DeleteBook(writer http.ResponseWriter, Request *http.Request) {
+	idstr := Request.FormValue("id")
+
+	id, err := strconv.Atoi(idstr)
+	if err != nil {
+		fmt.Println(err)
+		http.Redirect(writer, Request, "/500", http.StatusSeeOther)
+		return
+	}
+
+	message, err := models.DeleteBook(id)
+	if err != nil {
+		fmt.Println(err)
+		http.Redirect(writer, Request, "/500", http.StatusSeeOther)
+		return
+	}
+
+	data := types.PgMessage{Message: message}
+
+	files := views.ViewFileNames()
+	t := views.Render(files.AdminHome)
+	t.Execute(writer, data)
+}
