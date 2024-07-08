@@ -24,3 +24,9 @@ This project is a Library Management System using MVC architecture and mySQL wri
 - `migrate -path ./migrations -database "mysql://user:password@tcp(localhost:3306)/library_management_system" up`
 - `go build -o mvc ./cmd/main.go`
 - `./mvc`
+
+## To run using script
+
+- Make sure you have the above mentioned downloads installed.
+- go to the project directory, and make the script executable by `chmod +x setup.sh`
+- Run the script using `./setup.sh`
