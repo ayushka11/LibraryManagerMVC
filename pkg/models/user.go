@@ -1,6 +1,11 @@
 package models
 
-import "fmt"
+import (
+	"fmt"
+	"database/sql"
+
+	"github.com/ayushka11/LibraryManagerMVC/pkg/types"
+)
 
 func AddUser(username string, password string) error {
 	db, err := Connection()
@@ -29,4 +34,17 @@ func AddUser(username string, password string) error {
 	}
 
 	return nil
+}
+
+func UserExists(db *sql.DB ,username string) (bool, types.User, error) {
+	var user types.User
+
+	err := db.QueryRow("SELECT * FROM users WHERE username = ?", username).Scan(&user.UserId, &user.UserName, &user.Password, &user.IsAdmin, &user.AdminRequestStatus)
+	if err != nil {
+		if err != sql.ErrNoRows {
+			return false, user, err
+		}
+        return false, user, nil
+	}
+	return true, user, nil
 }

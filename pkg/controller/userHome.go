@@ -21,7 +21,7 @@ func UserHome (writer http.ResponseWriter, request *http.Request) {
     }
 
 	files := views.ViewFileNames()
-	t := views.Render(files.UserHome)
+	t := views.UserRender(files.UserHome)
 
 	data := struct {
         Checkouts   []types.Checkouts

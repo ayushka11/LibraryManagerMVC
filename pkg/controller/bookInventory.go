@@ -12,7 +12,7 @@ import (
 
 func AddBookPage (writer http.ResponseWriter, request *http.Request) {
 	files := views.ViewFileNames()
-	t := views.Render(files.AddBook)
+	t := views.AdminRender(files.AddBook)
 	t.Execute(writer, nil)
 }
 
@@ -38,7 +38,7 @@ func AddBook (writer http.ResponseWriter, request *http.Request) {
 	data := types.PgMessage{Message: message}
 
 	files := views.ViewFileNames()
-	t := views.Render(files.AdminHome)
+	t := views.AdminRender(files.AdminHome)
 	t.Execute(writer, data)
 }
 
@@ -62,6 +62,6 @@ func DeleteBook(writer http.ResponseWriter, Request *http.Request) {
 	data := types.PgMessage{Message: message}
 
 	files := views.ViewFileNames()
-	t := views.Render(files.AdminHome)
+	t := views.AdminRender(files.AdminHome)
 	t.Execute(writer, data)
 }

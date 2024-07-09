@@ -29,7 +29,7 @@ func ApproveRequest(writer http.ResponseWriter, request *http.Request){
 	data := types.PgMessage{Message: message}
 
 	files := views.ViewFileNames()
-	t := views.Render(files.AdminHome)
+	t := views.AdminRender(files.AdminHome)
 	t.Execute(writer, data)
 }
 
@@ -53,6 +53,6 @@ func DeclineRequest(writer http.ResponseWriter, request *http.Request){
 	data := types.PgMessage{Message: message}
 
 	files := views.ViewFileNames()
-	t := views.Render(files.AdminHome)
+	t := views.AdminRender(files.AdminHome)
 	t.Execute(writer, data)
 }

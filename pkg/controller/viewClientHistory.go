@@ -9,14 +9,19 @@ import (
 )
 
 func ViewHistory(writer http.ResponseWriter, request *http.Request) {
-	history, err := models.GetHistory()
+	userId, ok := request.Context().Value(types.UserIdContextKey).(int)
+    if !ok {
+        http.Error(writer, "User not authenticated", http.StatusUnauthorized)
+        return
+    }
+	history, err := models.GetHistory(userId)
 	if err != nil {
 		http.Redirect(writer, request, "/500", http.StatusSeeOther)
 		return
 	}
 
 	files := views.ViewFileNames()
-	t := views.Render(files.ViewHistory)
+	t := views.UserRender(files.ViewHistory)
 
 	data := struct {
 		History   []types.History

@@ -1,9 +1,5 @@
 package models
 
-import (
-
-)
-
 func RequestCheckout(bookid int, userid int) (string, error) {
 	db, err := Connection()
 	if err != nil {

@@ -16,7 +16,7 @@ func ViewAdminRequests(writer http.ResponseWriter, request *http.Request) {
 	}
 
 	files := views.ViewFileNames()
-	t := views.Render(files.AdminRequests)
+	t := views.AdminRender(files.AdminRequests)
 
 	data := struct {
 		AdminRequests []types.AdminRequest

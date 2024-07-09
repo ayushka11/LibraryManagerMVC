@@ -23,6 +23,18 @@ func ViewFileNames() types.FileName {
 	}
 }
 
+func AdminRender(page string) *template.Template {
+	file := "templates/" + page + ".html"
+	temp := template.Must(template.ParseFiles(file, "templates/partials/adminNav.html"))
+	return temp
+}
+
+func UserRender(page string) *template.Template {
+	file := "templates/" + page + ".html"
+	temp := template.Must(template.ParseFiles(file, "templates/partials/userNav.html"))
+	return temp
+}
+
 func Render(page string) *template.Template {
 	file := "templates/" + page + ".html"
 	temp := template.Must(template.ParseFiles(file))

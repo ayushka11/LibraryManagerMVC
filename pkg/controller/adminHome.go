@@ -7,6 +7,6 @@ import (
 
 func AdminHome (writer http.ResponseWriter, request *http.Request) {
 	files := views.ViewFileNames()
-	t := views.Render(files.AdminHome)
+	t := views.AdminRender(files.AdminHome)
 	t.Execute(writer, nil)
 }

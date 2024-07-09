@@ -5,13 +5,14 @@ import (
 	"github.com/ayushka11/LibraryManagerMVC/pkg/types"
 )
 
-func GetHistory() ([]types.History, error) {
+func GetHistory(id int) ([]types.History, error) {
 	db, err := Connection()
 	if err != nil {
 		return nil, err
 	}
 
-	rows, err := db.Query("SELECT c.book_id, b.title, b.author, c.checkout_date, c.due_date, c.return_date, c.fine, c.status, c.type FROM checkouts c JOIN books b ON c.book_id = b.id;")
+	historyquery := "SELECT c.book_id, b.title, b.author, c.checkout_date, c.due_date, c.return_date, c.fine, c.status, c.type FROM checkouts c JOIN books b ON c.book_id = b.id WHERE c.user_id = ?;"
+	rows, err := db.Query(historyquery, id)
 	if err != nil {
 		fmt.Println(err)
 		return nil, err

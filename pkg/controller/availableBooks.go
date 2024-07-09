@@ -16,7 +16,7 @@ func AvailableBooks(writer http.ResponseWriter, request *http.Request) {
 	}
 
 	files := views.ViewFileNames()
-	t := views.Render(files.AvailableBooks)
+	t := views.UserRender(files.AvailableBooks)
 
 	data := struct {
 		Books   []types.Book
