@@ -1,6 +1,7 @@
 package models
 
 import (
+	"fmt"
 	"time"
 )
 
@@ -43,9 +44,43 @@ func ApproveRequest(requestid int) (string, error) {
 		if err != nil {
 			return "", err
 		}
-	} 
+	} else if requestType == "checkin" {
+		returnDate := time.Now()
+		
+		getDueDateQuery := `SELECT due_date FROM checkouts WHERE id = ?`
+		
+		var dueDateStr string
+		err = db.QueryRow(getDueDateQuery, requestid).Scan(&dueDateStr)
+		if err != nil {
+			return "", err
+		}
+		
+		dueDate, err := time.Parse("2006-01-02", dueDateStr)
+		if err != nil {
+			return "", err
+		}
+	
+		fine := calculateFine(dueDate, returnDate)
+	
+		updateQuery = `UPDATE checkouts SET status = 'approved', return_date = ?, fine = ? WHERE id = ?`
+	
+		_, err = db.Exec(updateQuery, returnDate, fine, requestid)
+		if err != nil {
+			return "", err
+		}
+		
+	}
 
 	return "Request updated successfully", nil
+}
+
+func calculateFine(dueDate time.Time, returnDate time.Time) int {
+	fine := 0
+	if returnDate.After(dueDate) {
+		daysLate := returnDate.Sub(dueDate).Hours() / 24
+		fine = int(daysLate) * 5 
+	}
+	return fine
 }
 
 func DeclineRequest(requestid int) (string, error) {
@@ -54,9 +89,10 @@ func DeclineRequest(requestid int) (string, error) {
 		return "", err
 	}
 
-	approvequery := `UPDATE checkouts SET status = 'declined' WHERE id = ?`
-	_, error := db.Exec(approvequery, requestid)
+	declinequery := `UPDATE checkouts SET status = 'rejected' WHERE id = ?`
+	_, error := db.Exec(declinequery, requestid)
 	if error != nil {
+		fmt.Println(error)
 		return "", err
 	}
 

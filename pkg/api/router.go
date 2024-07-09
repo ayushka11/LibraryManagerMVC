@@ -20,6 +20,8 @@ func Run() {
 	userRouter.Use(middleware.RoleMiddleware(false))
 	adminRouter.Use(middleware.RoleMiddleware(true))
 
+	router.HandleFunc("/", controller.Login).Methods("GET")
+
 	router.HandleFunc("/signup", controller.Signup).Methods("GET")
 	router.HandleFunc("/signup", controller.AddUser).Methods("POST")
 	
