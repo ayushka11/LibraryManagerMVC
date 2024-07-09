@@ -37,7 +37,7 @@ func ApproveRequest(requestid int) (string, error) {
 			return "", err
 		}
 
-		updateBooksQuery := `UPDATE books SET available = available + 1 WHERE id = ?`
+		updateBooksQuery := `UPDATE books SET available = available - 1 WHERE id = ?`
 
 		_, err = db.Exec(updateBooksQuery, bookID)
 		if err != nil {

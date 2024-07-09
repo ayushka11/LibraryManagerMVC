@@ -21,5 +21,5 @@ func RequestAdmin(writer http.ResponseWriter, Request *http.Request) {
 		return
 	}
 
-	writer.Write([]byte(message))
+	showMessage(writer, Request, message)
 }

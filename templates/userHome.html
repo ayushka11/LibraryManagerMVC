@@ -33,6 +33,7 @@
                     <th scope="col">Author</th>
                     <th scope="col">Checkout Date</th>
                     <th scope="col">Due Date</th>
+                    <th scope="col">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -43,10 +44,16 @@
                     <td>{{.Author}}</td>
                     <td>{{.CheckoutDate}}</td>
                     <td>{{.DueDate}}</td>
+                    <td>
+                        <form action="/user/requestCheckin" method="POST">
+                            <input type="hidden" name="bookId" value="{{.BookId}}">
+                            <button type="submit" class="btn btn-warning">Request Checkin</button>
+                        </form>
+                    </td>
                 </tr>
                 {{else}}
                 <tr>
-                    <td colspan="5" class="text-center">No books checked out</td>
+                    <td colspan="6" class="text-center">No books checked out</td>
                 </tr>
                 {{end}}
             </tbody>

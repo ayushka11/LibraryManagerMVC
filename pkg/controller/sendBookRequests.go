@@ -31,7 +31,7 @@ func CheckinBook(writer http.ResponseWriter, Request *http.Request) {
 		return
 	}
 
-	writer.Write([]byte(message))
+	showMessage(writer, Request, message)
 }
 
 func CheckoutBook(writer http.ResponseWriter, Request *http.Request) {
@@ -57,5 +57,5 @@ func CheckoutBook(writer http.ResponseWriter, Request *http.Request) {
 		return
 	}
 
-	writer.Write([]byte(message))
+	showMessage(writer, Request, message)
 }

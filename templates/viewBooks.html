@@ -21,8 +21,8 @@
                 <tr>
                     <th>Title</th>
                     <th>Author</th>
-                    <th>Quantity</th>
                     <th>Available</th>
+                    <th>Quantity</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -31,8 +31,8 @@
                 <tr>
                     <td>{{.Title}}</td>
                     <td>{{.Author}}</td>
-                    <td>{{.Quantity}}</td>
                     <td>{{.Available}}</td>
+                    <td>{{.Quantity}}</td>
                     <td>
                         <form action="/admin/deleteBook" method="POST" style="display: inline;">
                             <input type="hidden" name="id" value="{{.BookId}}">
