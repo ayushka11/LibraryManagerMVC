@@ -20,7 +20,7 @@ func GetBooks() ([]types.Book, error) {
 	var books []types.Book
 	for rows.Next() {
 		var book types.Book
-		err := rows.Scan(&book.BookId, &book.Title, &book.Author, &book.Quantity, &book.Available)
+		err := rows.Scan(&book.BookId, &book.Title, &book.Author, &book.Available, &book.Quantity)
 		if err != nil {
 			fmt.Println(err)
 			return nil, err
@@ -50,7 +50,7 @@ func GetAvailableBooks () ([]types.Book, error){
 	var books []types.Book
 	for rows.Next() {
 		var book types.Book
-		err := rows.Scan(&book.BookId, &book.Title, &book.Author, &book.Quantity, &book.Available)
+		err := rows.Scan(&book.BookId, &book.Title, &book.Author, &book.Available, &book.Quantity)
 		if err != nil {
 			fmt.Println(err)
 			return nil, err

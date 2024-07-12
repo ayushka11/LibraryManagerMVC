@@ -68,7 +68,20 @@ func ApproveRequest(requestid int) (string, error) {
 		if err != nil {
 			return "", err
 		}
-		
+
+		var bookID int
+		getBookIDQuery := `SELECT book_id FROM checkouts WHERE id = ?`
+		err = db.QueryRow(getBookIDQuery, requestid).Scan(&bookID)
+		if err != nil {
+			return "", err
+		}
+
+		updateBooksQuery := `UPDATE books SET available = available + 1 WHERE id = ?`
+
+		_, err = db.Exec(updateBooksQuery, bookID)
+		if err != nil {
+			return "", err
+		}
 	}
 
 	return "Request updated successfully", nil

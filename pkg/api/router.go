@@ -41,6 +41,7 @@ func Run() {
 	adminRouter.HandleFunc("/addBook", controller.AddBookPage).Methods("GET")
 	adminRouter.HandleFunc("/addBook", controller.AddBook).Methods("POST")
 	adminRouter.HandleFunc("/viewBooks", controller.ViewBooks).Methods("GET")
+	adminRouter.HandleFunc("/removeBooks", controller.RemoveBooks).Methods("POST")
 	adminRouter.HandleFunc("/deleteBook", controller.DeleteBook).Methods("POST")
 	adminRouter.HandleFunc("/bookRequests", controller.ViewBookRequests).Methods("GET")	
 	adminRouter.HandleFunc("/approveRequest", controller.ApproveRequest).Methods("POST")

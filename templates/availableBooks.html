@@ -30,8 +30,8 @@
                     <tr>
                         <th>Title</th>
                         <th>Author</th>
-                        <th>Quantity</th>
                         <th>Available</th>
+                        <th>Quantity</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -40,8 +40,8 @@
                     <tr>
                         <td>{{.Title}}</td>
                         <td>{{.Author}}</td>
-                        <td>{{.Quantity}}</td>
                         <td>{{.Available}}</td>
+                        <td>{{.Quantity}}</td>
                         <td>
                             {{if .Available}}
                             <form action="/user/requestCheckout" method="POST" style="display:inline;">

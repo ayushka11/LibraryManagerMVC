@@ -23,6 +23,7 @@
                     <th>Author</th>
                     <th>Available</th>
                     <th>Quantity</th>
+                    <th>Remove Quantity</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -34,9 +35,17 @@
                     <td>{{.Available}}</td>
                     <td>{{.Quantity}}</td>
                     <td>
+                        <input type="number" id="removeQuantity{{.BookId}}" class="form-control" min="1" value="1">
+                    </td>
+                    <td>
                         <form action="/admin/deleteBook" method="POST" style="display: inline;">
                             <input type="hidden" name="id" value="{{.BookId}}">
                             <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                        <form action="/admin/removeBooks" method="POST" style="display: inline;" onsubmit="return checkRemoveQuantity('{{.BookId}}')">
+                            <input type="hidden" name="id" value="{{.BookId}}">
+                            <input type="hidden" name="removeQuantity" id="hiddenRemoveQuantity{{.BookId}}">
+                            <button type="submit" class="btn btn-warning btn-sm">Remove</button>
                         </form>
                     </td>
                 </tr>
@@ -49,5 +58,16 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        function checkRemoveQuantity(bookId) {
+            var removeQuantity = document.getElementById('removeQuantity' + bookId).value;
+            if (removeQuantity <= 0) {
+                alert("Remove quantity must be greater than 0");
+                return false;
+            }
+            document.getElementById('hiddenRemoveQuantity' + bookId).value = removeQuantity;
+            return true;
+        }
+    </script>
 </body>
 </html>

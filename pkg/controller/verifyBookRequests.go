@@ -21,6 +21,7 @@ func ApproveRequest(writer http.ResponseWriter, request *http.Request){
 
 	message, err := models.ApproveRequest(requestid)
 	if err != nil {
+		fmt.Println("here")
 		fmt.Println(err)
 		http.Redirect(writer, request, "/500", http.StatusSeeOther)
 		return

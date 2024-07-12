@@ -42,6 +42,38 @@ func AddBook (writer http.ResponseWriter, request *http.Request) {
 	t.Execute(writer, data)
 }
 
+func RemoveBooks(writer http.ResponseWriter, Request *http.Request) {
+	idstr := Request.FormValue("id")
+	removequantitystr := Request.FormValue("removeQuantity")
+
+	id, err := strconv.Atoi(idstr)
+	if err != nil {
+		fmt.Println(err)
+		http.Redirect(writer, Request, "/500", http.StatusSeeOther)
+		return
+	}
+
+	removequantity, err := strconv.Atoi(removequantitystr)
+	if err != nil {
+		fmt.Println(err)
+		http.Redirect(writer, Request, "/500", http.StatusSeeOther)
+		return
+	}
+
+	message, err := models.RemoveBooks(id, removequantity)
+	if err != nil {
+		fmt.Println(err)
+		http.Redirect(writer, Request, "/500", http.StatusSeeOther)
+		return
+	}
+
+	data := types.PgMessage{Message: message}
+
+	files := views.ViewFileNames()
+	t := views.AdminRender(files.AdminHome)
+	t.Execute(writer, data)
+}
+
 func DeleteBook(writer http.ResponseWriter, Request *http.Request) {
 	idstr := Request.FormValue("id")
 
