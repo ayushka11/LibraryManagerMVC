@@ -52,6 +52,7 @@ func Run() {
 
 	router.HandleFunc("/403", controller.Unauthorized).Methods("GET")
 	router.HandleFunc("/500", controller.InternalServerError).Methods("GET")
+	router.NotFoundHandler = http.HandlerFunc(controller.PageNotFound)
 
 	http.ListenAndServe(":8000", router)
 }

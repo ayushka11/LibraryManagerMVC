@@ -60,7 +60,7 @@ func ApproveRequest(requestid int) (string, error) {
 			return "", err
 		}
 	
-		fine := calculateFine(dueDate, returnDate)
+		fine := CalculateFine(dueDate, returnDate)
 	
 		updateQuery = `UPDATE checkouts SET status = 'approved', return_date = ?, fine = ? WHERE id = ?`
 	
@@ -87,7 +87,7 @@ func ApproveRequest(requestid int) (string, error) {
 	return "Request updated successfully", nil
 }
 
-func calculateFine(dueDate time.Time, returnDate time.Time) int {
+func CalculateFine(dueDate time.Time, returnDate time.Time) int {
 	fine := 0
 	if returnDate.After(dueDate) {
 		daysLate := returnDate.Sub(dueDate).Hours() / 24
