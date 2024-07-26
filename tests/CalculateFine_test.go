@@ -15,7 +15,7 @@ func TestCalculateFine(t *testing.T) {
 		{time.Date(2024, 7, 1, 0, 0, 0, 0, time.UTC), time.Date(2024, 7, 1, 0, 0, 0, 0, time.UTC), 0},
 		{time.Date(2024, 7, 1, 0, 0, 0, 0, time.UTC), time.Date(2024, 7, 2, 0, 0, 0, 0, time.UTC), 5},
 		{time.Date(2024, 7, 1, 0, 0, 0, 0, time.UTC), time.Date(2024, 7, 5, 0, 0, 0, 0, time.UTC), 20},
-		{time.Date(2024, 7, 5, 0, 0, 0, 0, time.UTC), time.Date(2024, 7, 1, 0, 0, 0, 0, time.UTC), 0}, // Early return
+		{time.Date(2024, 7, 5, 0, 0, 0, 0, time.UTC), time.Date(2024, 7, 1, 0, 0, 0, 0, time.UTC), 0},
 	}
 
 	for _, tt := range tests {
