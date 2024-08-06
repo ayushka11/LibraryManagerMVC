@@ -80,6 +80,7 @@ func DeleteBook(writer http.ResponseWriter, Request *http.Request) {
 	id, err := strconv.Atoi(idstr)
 	if err != nil {
 		fmt.Println(err)
+		fmt.Println("Error in converting id to int")
 		http.Redirect(writer, Request, "/500", http.StatusSeeOther)
 		return
 	}
@@ -87,6 +88,7 @@ func DeleteBook(writer http.ResponseWriter, Request *http.Request) {
 	message, err := models.DeleteBook(id)
 	if err != nil {
 		fmt.Println(err)
+		fmt.Println("Error in deleting book")
 		http.Redirect(writer, Request, "/500", http.StatusSeeOther)
 		return
 	}

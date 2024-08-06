@@ -23,17 +23,29 @@ func ApproveRequest(requestid int) (string, error) {
 		dueDate := checkoutDate.AddDate(0, 0, 14)
 		fine := 0
 
-		updateQuery = `UPDATE checkouts SET status = 'approved', checkout_date = ?, due_date = ?, fine = ? WHERE id = ?`
-
-		_, err = db.Exec(updateQuery, checkoutDate, dueDate, fine, requestid)
-		if err != nil {
-			return "", err
-		}
-
 		getBookIDQuery := `SELECT book_id FROM checkouts WHERE id = ?`
 
 		var bookID int
 		err = db.QueryRow(getBookIDQuery, requestid).Scan(&bookID)
+		if err != nil {
+			return "", err
+		}
+
+		getAvailableQuery := `SELECT available FROM books WHERE id = ?`
+
+		var available int
+		err = db.QueryRow(getAvailableQuery, bookID).Scan(&available)
+		if err != nil {
+			return "", err
+		}
+
+		if available == 0 {
+			return "Book not available", nil
+		}
+
+		updateQuery = `UPDATE checkouts SET status = 'approved', checkout_date = ?, due_date = ?, fine = ? WHERE id = ?`
+
+		_, err = db.Exec(updateQuery, checkoutDate, dueDate, fine, requestid)
 		if err != nil {
 			return "", err
 		}

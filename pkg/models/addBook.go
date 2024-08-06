@@ -103,7 +103,7 @@ func DeleteBook(id int) (string, error) {
 		return "Cannot delete book with pending requests", nil
 	}
 
-	checkAvailable := `SELECT available and quantity FROM books WHERE id = ?;`
+	checkAvailable := `SELECT available, quantity FROM books WHERE id = ?;`
 	var available, quantity int
 	err = db.QueryRow(checkAvailable, id).Scan(&available, &quantity)
 	if err != nil {

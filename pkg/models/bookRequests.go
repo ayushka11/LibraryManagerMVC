@@ -6,7 +6,7 @@ func RequestCheckout(bookid int, userid int) (string, error) {
 		return "", err
 	}
 
-	requestquery := `INSERT INTO checkouts (book_id, user_id, status, type) VALUES (?, ?, ?, ?)`
+	requestquery := `INSERT INTO checkouts (book_id, user_id, status, type) VALUES (?, ?, ?, ?)` 
 	_, error := db.Exec(requestquery, bookid, userid, "pending", "checkout")
 	if error != nil {
 		return "", err

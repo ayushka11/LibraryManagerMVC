@@ -10,14 +10,6 @@ import (
 	"golang.org/x/exp/slices"
 )
 
-// type key string
-
-// const (
-// 	UserIdContextKey key = "UserId"
-// 	IsAdminContextKey key = "IsAdmin"
-// 	UsernameContextKey key = "Username"
-// )
-
 func TokenMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(writer http.ResponseWriter, request *http.Request) {
 		goThroughUrls := []string{"/", "/signup", "/login", "/403", "/500", "/loginAdmin", "/loginUser"}
