@@ -1,8 +1,10 @@
 package models
 
 import (
-	"github.com/ayushka11/LibraryManagerMVC/pkg/types"
 	"database/sql"
+	"fmt"
+
+	"github.com/ayushka11/LibraryManagerMVC/pkg/types"
 )
 
 func AddBook(title string, author string, quantity int) (string, error){
@@ -93,29 +95,51 @@ func DeleteBook(id int) (string, error) {
 		return "", err
 	}
 
-	checkPending := `SELECT COUNT(*) FROM checkouts WHERE book_id = ? AND status = 'pending';`
+	checkPending := `SELECT COUNT(*) FROM checkouts WHERE book_id = ? AND status = 'pending' AND type = 'checkin';`
 	var pending int
 	err = db.QueryRow(checkPending, id).Scan(&pending)
 	if err != nil {
+		fmt.Println(err)
+		fmt.Println("Error in pending")
 		return "", err
 	}
-	if (pending > 0) {
-		return "Cannot delete book with pending requests", nil
+	if pending > 0 {
+		return "Cannot delete book with pending checkin requests", nil
 	}
 
 	checkAvailable := `SELECT available, quantity FROM books WHERE id = ?;`
 	var available, quantity int
 	err = db.QueryRow(checkAvailable, id).Scan(&available, &quantity)
 	if err != nil {
+		fmt.Println(err)
+		fmt.Println("Error in available")
 		return "", err
 	}
-	if (available != quantity) {
-		return "Cannot delete book with pending requests", nil
+	if available != quantity {
+		return "Cannot delete book with checked out copies", nil
 	}
 
-	deletequery := `DELETE FROM books WHERE id = ?;`
-	_, error := db.Exec(deletequery, id)
-	if error != nil {
+	declinequery := `UPDATE checkouts SET status = 'rejected' WHERE book_id = ? AND status = 'pending' AND type = 'checkout';`
+	_, err = db.Exec(declinequery, id)
+	if err != nil {
+		fmt.Println(err)
+		fmt.Println("Error in decline")
+		return "", err
+	}
+
+	deleteCheckoutsQuery := `DELETE FROM checkouts WHERE book_id = ?;`
+	_, err = db.Exec(deleteCheckoutsQuery, id)
+	if err != nil {
+		fmt.Println(err)
+		fmt.Println("Error in deleting checkouts")
+		return "", err
+	}
+
+	deleteBookQuery := `DELETE FROM books WHERE id = ?;`
+	_, err = db.Exec(deleteBookQuery, id)
+	if err != nil {
+		fmt.Println(err)
+		fmt.Println("Error in delete")
 		return "", err
 	}
 
