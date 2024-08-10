@@ -7,6 +7,7 @@ import (
 	"github.com/ayushka11/LibraryManagerMVC/pkg/models"
 	"github.com/ayushka11/LibraryManagerMVC/pkg/types"
 	"github.com/ayushka11/LibraryManagerMVC/pkg/views"
+	"github.com/ayushka11/LibraryManagerMVC/pkg/utils"
 
 )
 
@@ -30,7 +31,7 @@ func AddUser(writer http.ResponseWriter, request *http.Request) {
 		http.Redirect(writer, request, "/signup?message=all fields are mandatory", http.StatusSeeOther)
 		return
 	} else {
-		db, err := models.Connection()
+		db, err := utils.Connection()
 		if err != nil {
 			log.Println(err)
 			http.Redirect(writer, request, "/500", http.StatusSeeOther)
@@ -47,7 +48,7 @@ func AddUser(writer http.ResponseWriter, request *http.Request) {
 			http.Redirect(writer, request, "/signup?message=user already exists", http.StatusSeeOther)
 			return
 		} else {
-			password, err := models.HashPassword(RequestUser.Password)
+			password, err := utils.HashPassword(RequestUser.Password)
 			if err != nil {
 				log.Println(err)
 				http.Redirect(writer, request, "/500", http.StatusSeeOther)

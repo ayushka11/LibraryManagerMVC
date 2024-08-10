@@ -2,10 +2,11 @@ package models
 
 import (
 	"fmt"
+	"github.com/ayushka11/LibraryManagerMVC/pkg/utils"
 )
 
 func RequestAdmin(userid int) (string, error) {
-	db, err := Connection()
+	db, err := utils.Connection()
 	if err != nil {
 		return "", err
 	}

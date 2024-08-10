@@ -3,10 +3,11 @@ package models
 import (
 	"fmt"
 	"github.com/ayushka11/LibraryManagerMVC/pkg/types"
+	"github.com/ayushka11/LibraryManagerMVC/pkg/utils"
 )
 
 func GetAdminRequests() ([]types.AdminRequest, error){
-	db, err := Connection()
+	db, err := utils.Connection()
 	if err != nil {
 		return nil, err
 	}

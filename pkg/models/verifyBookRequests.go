@@ -3,10 +3,11 @@ package models
 import (
 	"fmt"
 	"time"
+	"github.com/ayushka11/LibraryManagerMVC/pkg/utils"
 )
 
 func ApproveRequest(requestid int) (string, error) {
-	db, err := Connection()
+	db, err := utils.Connection()
 	if err != nil {
 		return "", err
 	}
@@ -109,7 +110,7 @@ func CalculateFine(dueDate time.Time, returnDate time.Time) int {
 }
 
 func DeclineRequest(requestid int) (string, error) {
-	db, err := Connection()
+	db, err := utils.Connection()
 	if err != nil {
 		return "", err
 	}

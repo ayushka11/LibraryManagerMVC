@@ -5,10 +5,11 @@ import (
 	"database/sql"
 
 	"github.com/ayushka11/LibraryManagerMVC/pkg/types"
+	"github.com/ayushka11/LibraryManagerMVC/pkg/utils"
 )
 
 func AddUser(username string, password string) error {
-	db, err := Connection()
+	db, err := utils.Connection()
 	if err != nil {
 		return err
 	}

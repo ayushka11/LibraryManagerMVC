@@ -1,15 +1,15 @@
-package models
+package utils
 
 import (
 	"github.com/ayushka11/LibraryManagerMVC/pkg/types"  
 	"context"              
 	"database/sql"         
-	"fmt"                  
-	_ "github.com/go-sql-driver/mysql"  
+	"fmt"                   
 	"gopkg.in/yaml.v3"      
 	"log"                   
 	"os"                    
 	"time"  
+	_ "github.com/go-sql-driver/mysql"
 )
 
 func dsn() string {

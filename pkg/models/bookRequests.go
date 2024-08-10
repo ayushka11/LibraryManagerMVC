@@ -1,7 +1,11 @@
 package models
 
+import (
+	"github.com/ayushka11/LibraryManagerMVC/pkg/utils"
+)
+
 func RequestCheckout(bookid int, userid int) (string, error) {
-	db, err := Connection()
+	db, err := utils.Connection()
 	if err != nil {
 		return "", err
 	}
@@ -16,7 +20,7 @@ func RequestCheckout(bookid int, userid int) (string, error) {
 }
 
 func RequestCheckin(bookid int, userid int) (string, error) {
-	db, err := Connection()
+	db, err := utils.Connection()
 	if err != nil {
 		return "", err
 	}

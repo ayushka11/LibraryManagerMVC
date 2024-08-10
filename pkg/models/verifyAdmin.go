@@ -2,10 +2,11 @@ package models
 
 import (
 	"database/sql"
+	"github.com/ayushka11/LibraryManagerMVC/pkg/utils"
 )
 
 func VerifyAdmin(userId int) (bool, error) {
-	db, err := Connection()
+	db, err := utils.Connection()
 	if err != nil {
 		return false, err
 	}

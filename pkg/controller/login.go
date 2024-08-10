@@ -10,6 +10,7 @@ import (
 	"github.com/ayushka11/LibraryManagerMVC/pkg/types"
 	"github.com/ayushka11/LibraryManagerMVC/pkg/views"
 	"github.com/golang-jwt/jwt/v5"
+	"github.com/ayushka11/LibraryManagerMVC/pkg/utils"
 )
 
 func Login(writer http.ResponseWriter, request *http.Request) {
@@ -24,7 +25,7 @@ func LoginUser(writer http.ResponseWriter, request *http.Request) {
 	RequestUser.UserName = request.FormValue("username")
 	RequestUser.Password = request.FormValue("password")
 	
-	db, err := models.Connection()
+	db, err := utils.Connection()
 	if err != nil {
 		log.Println(err)
 		http.Redirect(writer, request, "/500", http.StatusSeeOther)
@@ -43,7 +44,7 @@ func LoginUser(writer http.ResponseWriter, request *http.Request) {
 		http.Redirect(writer, request, "/login?message=user does not exist", http.StatusSeeOther)
 		return
 	} else {
-		if !models.CheckPasswordHash(RequestUser.Password, user.Password) {
+		if !utils.CheckPasswordHash(RequestUser.Password, user.Password) {
 			http.Redirect(writer, request, "/login?message=incorrect password", http.StatusSeeOther)
 			return
 		} else {
@@ -58,7 +59,7 @@ func LoginUser(writer http.ResponseWriter, request *http.Request) {
 				},
 			}
 
-			key, err := models.GetJWTSecretKey()
+			key, err := utils.GetJWTSecretKey()
 			jwtKey := []byte(key)
 			if err != nil {
 				fmt.Printf("Error getting JWT secret key: %v\n", err)

@@ -8,6 +8,7 @@ import (
 	"log"
 	"net/http"
 	"golang.org/x/exp/slices"
+	"github.com/ayushka11/LibraryManagerMVC/pkg/utils"
 )
 
 func TokenMiddleware(next http.Handler) http.Handler {
@@ -33,7 +34,7 @@ func TokenMiddleware(next http.Handler) http.Handler {
 
 		claims := &types.Claims{}
 
-		key, err := models.GetJWTSecretKey()
+		key, err := utils.GetJWTSecretKey()
 		jwtKey := []byte(key)
 		if err != nil {
 			log.Println(err)

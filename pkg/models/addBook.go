@@ -5,10 +5,11 @@ import (
 	"fmt"
 
 	"github.com/ayushka11/LibraryManagerMVC/pkg/types"
+	"github.com/ayushka11/LibraryManagerMVC/pkg/utils"
 )
 
 func AddBook(title string, author string, quantity int) (string, error){
-	db, err := Connection()
+	db, err := utils.Connection()
 	if err != nil {
 		return "", err
 	}
@@ -41,7 +42,7 @@ func AddBook(title string, author string, quantity int) (string, error){
 func bookExists(title string, author string) (bool, types.Book, error) {
 	var book types.Book
 
-	db, err := Connection()
+	db, err := utils.Connection()
 	if err != nil {
 		return false, book, err
 	}
@@ -58,7 +59,7 @@ func bookExists(title string, author string) (bool, types.Book, error) {
 }
 
 func RemoveBooks(id int, remQuantity int) (string, error) {
-	db, err := Connection()
+	db, err := utils.Connection()
 	if err != nil {
 		return "", err
 	}
@@ -90,7 +91,7 @@ func RemoveBooks(id int, remQuantity int) (string, error) {
 }
 
 func DeleteBook(id int) (string, error) {
-	db, err := Connection()
+	db, err := utils.Connection()
 	if err != nil {
 		return "", err
 	}

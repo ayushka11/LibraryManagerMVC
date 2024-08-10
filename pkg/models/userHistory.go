@@ -3,10 +3,11 @@ package models
 import (
 	"github.com/ayushka11/LibraryManagerMVC/pkg/types"
 	"fmt"
+	"github.com/ayushka11/LibraryManagerMVC/pkg/utils"
 )
 
 func GetCheckedOutBooksByUser(id int) ([]types.Checkouts, error){
-	db, err := Connection()
+	db, err := utils.Connection()
 	if err != nil {
 		return nil, err
 	}
