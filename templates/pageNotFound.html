@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Unauthorized Access</title>
+    <!-- Add Bootstrap Minty CSS -->
+    <link rel="stylesheet" href="https://bootswatch.com/4/minty/bootstrap.min.css">
+    <style>
+        .h-custom-2 {
+            height: 100%;
+        }
+        .centered-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        .error-message {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .error-image {
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Main Content -->
+    <div class="container-fluid centered-content">
+        <div class="error-message">
+            <img src="https://img.icons8.com/ios-filled/100/000000/error.png" class="error-image" alt="Unauthorized Access">
+            <h1>Page Not Found</h1>
+            <p>Following page was not found.</p>
+            <a href="/login" class="btn btn-primary">Login</a>
+        </div>
+    </div>
+
+    <!-- Add Bootstrap JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
