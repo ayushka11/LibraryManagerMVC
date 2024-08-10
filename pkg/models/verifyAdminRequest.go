@@ -13,6 +13,12 @@ func VerifyAdminRequest (userId int, action rune) (string, error) {
 	var status string
 	if action == 'A' {
 		status = "approved"
+		var pending int
+		checkPendingBookRequests := `SELECT COUNT(*) FROM checkouts WHERE status = "pending" AND user_id = ?`
+		err = db.QueryRow(checkPendingBookRequests, userId).Scan(&pending)
+		if err != nil {
+			return "Cannot make user with pending requests admin", err
+		}
 	} else {
 		status = "rejected"
 	}
