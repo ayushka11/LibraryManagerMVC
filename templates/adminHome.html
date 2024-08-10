@@ -1,45 +1,56 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <title>Admin Home</title>
     <!-- Add Bootstrap Minty CSS -->
-    <link rel="stylesheet" href="https://bootswatch.com/4/minty/bootstrap.min.css">
+    <link
+      rel="stylesheet"
+      href="https://bootswatch.com/4/minty/bootstrap.min.css"
+    />
     <style>
-        .h-custom-2 {
-            height: 100%;
-        }
-        .centered-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-        }
+      .h-custom-2 {
+        height: 100%;
+      }
+      .centered-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     {{template "adminNav.html"}}
 
     <!-- Main Content -->
     <div class="container-fluid centered-content">
-        <!-- Message Bar -->
-        {{if .Message}}
-        <div class="alert alert-info alert-dismissible fade show" role="alert">
-            {{.Message}}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        {{end}}
+      <!-- Message Bar -->
+      {{if .Message}}
+      <div class="alert alert-info alert-dismissible fade show" role="alert">
+        {{.Message}}
+        <button
+          type="button"
+          class="close"
+          data-dismiss="alert"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      {{end}}
 
-        <!-- Content goes here -->
-        <h1>Welcome, Admin!</h1>
-        <p>Use the navigation bar to manage the library system.</p>
+      <!-- Content goes here -->
+      <h1>Welcome, Admin!</h1>
+      <p>Use the navigation bar to manage the library system.</p>
     </div>
 
     <!-- Add Bootstrap JavaScript -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
+    <script>
+      localStorage.setItem("type", "admin");
+    </script>
+  </body>
 </html>
